@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h2>Admin Dashboard</h2>
+
+    <h3>Total Sales: ${{ sales }}</h3>
+
+    <h3>Current Reservations</h3>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Seat</th>
+            <th>Reservation Code</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+        {% for r in reservations %}
+        <tr>
+            <td>{{ r.first_name }} {{ r.last_name }}</td>
+            <td>Row {{ r.seat_row }}, Column {{ r.seat_column }}</td>
+            <td>{{ r.reservation_code }}</td>
+            <td>${{ r.price }}</td>
+            <td><a href="{{ url_for('delete', res_id=r.id) }}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br><a href="/logout">Log Out</a>
+    <br><a href="/">Back to Main Menu</a>
+</body>
+</html>
