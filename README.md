@@ -1,3 +1,3 @@
 # First edit: feel free to change whatever I committed, just wanted to get something into github.
 # admin username: admin
-# admin password: pass123
+# admin password: admin123
