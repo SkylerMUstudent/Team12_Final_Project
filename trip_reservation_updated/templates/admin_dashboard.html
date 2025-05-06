@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head><title>Admin Dashboard</title></head>
+<body>
+    <h2>Admin Dashboard</h2>
+    <p><strong>Total Sales:</strong> ${{ total_sales }}</p>
+    <ul>
+        {% for res in reservations %}
+        <li>
+            {{ res.first_name }} {{ res.last_name }} - Row {{ res.seat_row }}, Col {{ res.seat_col }}
+            <form method="post" action="/delete/{{ res.id }}" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="/">Back to Main</a>
+</body>
+</html>
