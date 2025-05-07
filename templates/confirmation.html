@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reservation Confirmation</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        td {
+            padding: 10px;
+            border: 1px solid #333;
+            text-align: center;
+            width: 100px;
+        }
+        .reserved {
+            background-color: #ffb3b3;
+        }
+        .available {
+            background-color: #b3ffb3;
+        }
+    </style>
+</head>
+<body>
+    <h2>Reservation Confirmed!</h2>
+    <p>Your reservation code is <strong>{{ code }}</strong></p>
+    <p>Total Price: ${{ price }}</p>
+
+    <h3>Current Seating Chart</h3>
+    <table>
+        {% for row in seats %}
+        <tr>
+            {% for seat in row %}
+            <td class="{{ 'reserved' if seat != 'Available' else 'available' }}">
+                {{ seat }}
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <a href="/">Back to Main</a>
+</body>
+</html>
