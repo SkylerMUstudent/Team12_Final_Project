@@ -1,3 +1,34 @@
-<h2>Bus Reservation System</h2>
-<a href="/reserve">Reserve a Seat</a><br>
-<a href="/admin_login">Admin Login</a>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Main Menu</title>
+    <script>
+        function option_Selection(event){
+            event.preventDefault();
+            var userInput = option.value;
+            if (userInput) {
+                window.location.href = userInput;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Trip Reservation System</h1>
+    <form onsubmit="option_Selection(event)">
+        <p>Welcome to the IT-4320 reservation system. Use the selection box to whether to make a reservation or log in as an administrator.</p>
+        <label for="">Choose Menu Option:</label><br>
+        <select id="option">
+            <option value="">Choose an Option</option>
+            <option value="http://127.0.0.1:8080/admin-login">Admin Login</option>
+            <option value="http://127.0.0.1:8080/reserve">Reserve a Set</option>
+        </select>
+        <br><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <ul>
+        <li><a href="/admin-login">Admin Login</a></li>
+        <li><a href="/reserve">Reserve a Seat</a></li>
+    </ul>
+</body>
+</html>
