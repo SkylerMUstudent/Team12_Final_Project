@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+</head>
+<body>
+
+    <br>
+    <h1><a href="/" style="text-decoration: none;">Home</a></h1>
+    <hr>
+    
+    {% if logged_in %}
+    <h2>Admin Dashboard</h2>
+    <p><strong>Total Sales:</strong> ${{ total_sales }}</p>
+
+    <ul>
+        {% for res in reservations %}
+        <li>
+            {{ res.first_name }} {{ res.last_name }} - Row {{ res.seat_row }}, Col {{ res.seat_col }}
+            <form method="post" action="/delete/{{ res.id }}" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Seating Chart</h3>
+    <table border="1" cellpadding="10">
+        {% for row in seats %}
+        <tr>
+            {% for seat in row %}
+            <td>{{ seat }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- <a href="/">Back to Main</a> -->
+    {% endif %}
+    
+    <h2>Admin Login</h2>
+
+    {% if error %}
+    <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <form method="post" action="/admin-dashboard">
+        Username: <input type="text" name="username"><br><br>
+        Password: <input type="password" name="password"><br><br>
+        <input type="submit" value="Login">
+    </form>
+
+</body>
+</html>

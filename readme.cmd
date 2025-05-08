@@ -1,6 +1,9 @@
 readme.cmd
 docker build -t trip_reservation_updated .
 
+build admin database
+python init_admin_db.py
+
 Check locally
 python app.py
 

@@ -21,28 +21,44 @@ def build_seating_chart():
 
 @reservation_bp.route('/reserve', methods=['GET', 'POST'])
 def reserve():
+    error = None
+
     if request.method == 'POST':
-        row = int(request.form['seat_row']) - 1
-        col = int(request.form['seat_col']) - 1
-        price = COST_MATRIX[row][col]
-        code = generate_code()
-        reservation = Reservation(
-            first_name=request.form['first_name'],
-            last_name=request.form['last_name'],
-            seat_row=row + 1,
-            seat_col=col + 1,
-            price=price,
-            code=code
-        )
-        db.session.add(reservation)
-        db.session.commit()
+        try:
+            row = int(request.form['seat_row'])
+            col = int(request.form['seat_col'])
 
-        # Build seating chart
-        seats = [['Available' for _ in range(4)] for _ in range(12)]
-        all_reservations = Reservation.query.all()
-        for res in all_reservations:
-            seats[res.seat_row - 1][res.seat_col - 1] = f"{res.first_name[0]}.{res.last_name[0]}"
+            # Validate bounds
+            if row < 1 or row > 12 or col < 1 or col > 4:
+                raise ValueError("Seat row must be 1–12 and column must be 1–4.")
 
-        return render_template('confirmation.html', code=code, price=price, seats=seats)
-    
-    return render_template('reserve.html')
+            # Check if already reserved
+            existing = Reservation.query.filter_by(seat_row=row, seat_col=col).first()
+            if existing:
+                raise ValueError(f"Seat Row {row}, Col {col} is already reserved.")
+
+            price = COST_MATRIX[row - 1][col - 1]
+            code = generate_code()
+
+            reservation = Reservation(
+                first_name=request.form['first_name'],
+                last_name=request.form['last_name'],
+                seat_row=row,
+                seat_col=col,
+                price=price,
+                code=code
+            )
+
+            db.session.add(reservation)
+            db.session.commit()
+
+            # Build seating chart
+            seats = build_seating_chart()
+
+            return render_template('confirmation.html', code=code, price=price, seats=seats)
+
+        except (ValueError, KeyError) as e:
+            error = str(e)
+
+    return render_template('reserve.html', error=error)
+

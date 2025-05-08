@@ -2,14 +2,33 @@
 <html>
 <head><title>Reserve Seat</title></head>
 <body>
+
+    <br>
+    <h1><a href="/" style="text-decoration: none;">Home</a></h1>
+    <hr>
+    
     <h2>Reserve a Seat</h2>
+
+    {% if error %}
+        <p style="color:red;">{{ error }}</p>
+    {% endif %}
+
     <form method="post">
-        First Name: <input type="text" name="first_name"><br>
-        Last Name: <input type="text" name="last_name"><br>
-        Seat Row (1-12): <input type="number" name="seat_row"><br>
-        Seat Column (1-4): <input type="number" name="seat_col"><br>
+        <div style="margin-bottom: 10px;">
+            First Name: <input type="text" name="first_name">
+        </div>
+        <div style="margin-bottom: 10px;">
+            Last Name: <input type="text" name="last_name">
+        </div>
+        <div style="margin-bottom: 10px;">
+            Seat Row (1-12): <input type="number" name="seat_row">
+        </div>
+        <div style="margin-bottom: 10px;">
+            Seat Column (1-4): <input type="number" name="seat_col">
+        </div>
         <input type="submit" value="Reserve">
     </form>
-    <a href="/">Back to Main</a>
+
+    <!-- <a href="/">Back to Main</a> -->
 </body>
 </html>
