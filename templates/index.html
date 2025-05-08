@@ -20,19 +20,19 @@
 
         #home-link {
             font-family: Arial, Helvetica, sans-serif;
-        }
-
-    </style>
-    <script>
-        function option_Selection(event){
-            event.preventDefault();
-            var userInput = option.value;
-            if (userInput) {
-                window.location.href = userInput;
             }
-        }
-    </script>
-</head>
+        </style>
+        <script>
+            function option_Selection(event){
+                event.preventDefault();
+                var selectElement = document.getElementById("option");
+                var userInput = selectElement.value;
+                if (userInput) {
+                    window.location.href = userInput;
+                }
+            }
+        </script>
+    </head>
 <body>
     <br>
     <h1 id="home-link">Home</h1>
@@ -44,8 +44,8 @@
             <label for="" style="font-weight: bold;">Choose Menu Option:</label><br>
             <select id="option">
                 <option value="">Choose an Option</option>
-                <option value="http://127.0.0.1:8080/admin-dashboard">Admin Login</option>
-                <option value="http://127.0.0.1:8080/reserve">Reserve a Set</option>
+                <option value="http://127.0.0.1:8085/admin-dashboard">Admin Login</option>
+                <option value="http://127.0.0.1:8085/reserve">Reserve a Set</option>
             </select>
             <br><br>
             <button type="submit">Submit</button>
