@@ -1,12 +1,56 @@
 <!DOCTYPE html>
 <html>
-<head><title>Main Menu</title></head>
+<head>
+    <title>Main Menu</title>
+    <style>
+        body {
+            background-color: rgb(158, 190, 232);
+        }
+
+        hr {
+            height: 2px;
+            background-color: black;
+        }
+
+        .Form-block {
+            background-color: white;
+            padding: 10px 30px;
+            border: 2px solid black;
+        }
+
+        #home-link {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+    </style>
+    <script>
+        function option_Selection(event){
+            event.preventDefault();
+            var userInput = option.value;
+            if (userInput) {
+                window.location.href = userInput;
+            }
+        }
+    </script>
+</head>
 <body>
     <br>
-    <h1>Home</h1>
+    <h1 id="home-link">Home</h1>
     <hr>
-    
-    <h1>Trip Reservation System</h1>
+    <div class="Form-block">
+        <h1>Trip Reservation System</h1>
+        <form onsubmit="option_Selection(event)">
+            <p>Welcome to the IT-4320 reservation system. Use the selection box to whether to make a reservation or log in as an administrator.</p>
+            <label for="" style="font-weight: bold;">Choose Menu Option:</label><br>
+            <select id="option">
+                <option value="">Choose an Option</option>
+                <option value="http://127.0.0.1:8080/admin-dashboard">Admin Login</option>
+                <option value="http://127.0.0.1:8080/reserve">Reserve a Set</option>
+            </select>
+            <br><br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
     <ul>
         <li><a href="/admin-dashboard">Admin Login</a></li>
         <li><a href="/reserve">Reserve a Seat</a></li>

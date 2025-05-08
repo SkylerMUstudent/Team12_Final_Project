@@ -2,38 +2,89 @@
 <html>
 <head>
     <title>Admin Panel</title>
+    <style>
+        #home-link, .admin-block h2, .admin-block p, .seating-chart h3 {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .login-block {
+            background-color: white;
+            padding: 10px 30px;
+            border: 1px solid black;
+        }
+
+        body {
+            background-color: rgb(158, 190, 232);
+        }
+
+        .admin-block {
+            background-color: rgb(236, 236, 236);
+            padding-left: 10px;
+            border: 3px solid black;
+        }
+
+         {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .admin-block form button {
+            background-color: rgb(244, 149, 149);
+        }
+
+        .admin-block form button:hover {
+            background-color: red;
+        }
+
+        .seating-chart {
+            background-color: rgb(234, 234, 234);
+            padding: 20px 30px;
+            border: 3px solid black;
+            width: 410px;
+            margin-top: 30px;
+            box-sizing: border-box;
+        }
+
+        hr {
+            height: 2px;
+            background-color: black;
+        }
+
+    </style>
 </head>
 <body>
 
     <br>
-    <h1><a href="/" style="text-decoration: none;">Home</a></h1>
+    <h1 id="home-link"><a href="/" style="text-decoration: none;">Home</a></h1>
     <hr>
     
     {% if logged_in %}
-    <h2>Admin Dashboard</h2>
-    <p><strong>Total Sales:</strong> ${{ total_sales }}</p>
+    <div class="admin-block">
+        <h2>Admin Dashboard</h2>
+        <p><strong>Total Sales:</strong> ${{ total_sales }}</p>
 
-    <ul>
-        {% for res in reservations %}
-        <li>
-            {{ res.first_name }} {{ res.last_name }} - Row {{ res.seat_row }}, Col {{ res.seat_col }}
-            <form method="post" action="/delete/{{ res.id }}" style="display:inline;">
-                <button type="submit">Delete</button>
-            </form>
-        </li>
-        {% endfor %}
-    </ul>
-
-    <h3>Seating Chart</h3>
-    <table border="1" cellpadding="10">
-        {% for row in seats %}
-        <tr>
-            {% for seat in row %}
-            <td>{{ seat }}</td>
+        <ul>
+            {% for res in reservations %}
+            <li>
+                {{ res.first_name }} {{ res.last_name }} - Row {{ res.seat_row }}, Col {{ res.seat_col }}
+                <form method="post" action="/delete/{{ res.id }}" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
             {% endfor %}
-        </tr>
-        {% endfor %}
-    </table>
+        </ul>
+    </div>
+    <div class="seating-chart">
+        <h3>Seating Chart</h3>
+        <table border="1" cellpadding="10">
+            {% for row in seats %}
+            <tr>
+                {% for seat in row %}
+                <td>{{ seat }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 
     <!-- <a href="/">Back to Main</a> -->
     {% endif %}
@@ -43,12 +94,13 @@
     {% if error %}
     <p style="color: red;">{{ error }}</p>
     {% endif %}
-
-    <form method="post" action="/admin-dashboard">
-        Username: <input type="text" name="username"><br><br>
-        Password: <input type="password" name="password"><br><br>
-        <input type="submit" value="Login">
-    </form>
+    <div class="login-block">
+        <form method="post" action="/admin-dashboard">
+            Username: <input type="text" name="username"><br><br>
+            Password: <input type="password" name="password"><br><br>
+            <input type="submit" value="Login">
+        </form>
+    </div>
 
 </body>
 </html>

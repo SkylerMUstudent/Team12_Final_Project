@@ -19,6 +19,23 @@
         .available {
             background-color: #b3ffb3;
         }
+
+        body {
+            background-color: rgb(158, 190, 232);
+        }
+
+        .seating-chart {
+            background-color: white;
+            padding: 10px 30px;
+            border: 2px solid black;
+            width: 440px;
+            margin-bottom: 30px;
+        }
+
+        h1, h2{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
     </style>
 </head>
 <body>
@@ -29,18 +46,20 @@
     <p>Your reservation code is <strong>{{ code }}</strong></p>
     <p>Total Price: ${{ price }}</p>
 
-    <h3>Current Seating Chart</h3>
-    <table>
-        {% for row in seats %}
-        <tr>
-            {% for seat in row %}
-            <td class="{{ 'reserved' if seat != 'Available' else 'available' }}">
-                {{ seat }}
-            </td>
+    <div class="seating-chart">
+        <h3>Current Seating Chart</h3>
+        <table>
+            {% for row in seats %}
+            <tr>
+                {% for seat in row %}
+                <td class="{{ 'reserved' if seat != 'Available' else 'available' }}">
+                    {{ seat }}
+                </td>
+                {% endfor %}
+            </tr>
             {% endfor %}
-        </tr>
-        {% endfor %}
-    </table>
+        </table>
+    </div>
 
     <br>
     <!-- <a href="/">Back to Main</a> -->
