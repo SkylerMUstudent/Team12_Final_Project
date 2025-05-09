@@ -52,54 +52,54 @@
     <br>
     <h1 id="home-link"><a href="/" style="text-decoration: none;">Home</a></h1>
     <hr>
-{% if not logged_in %}
-    <h2>Admin Login</h2>
 
-    {% if error %}
-    <p style="color: red;">{{ error }}</p>
-    {% endif %}
+    {% if logged_in %}
+        <div class="admin-block">
+            <h2>Admin Dashboard</h2>
+            <p><strong>Total Sales:</strong> ${{ total_sales }}</p>
 
-    <div class="login-block">
-        <form method="post" action="{{ url_for('admin_bp.admin_login') }}">
-            Username: <input type="text" name="username" required><br><br>
-            Password: <input type="password" name="password" required><br><br>
-            <input type="submit" value="Login">
-        </form>
-    </div>
-{% else %}
-    <p><a href="{{ url_for('admin_bp.admin_logout') }}">Logout</a></p>
-    {% endif %}
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="seating-chart">
-        <h3>Seating Chart</h3>
-        <table border="1" cellpadding="10">
-            {% for row in seats %}
-            <tr>
-                {% for seat in row %}
-                <td>{{ seat }}</td>
+            <ul>
+                {% for res in reservations %}
+                <li>
+                    {{ res.first_name }} {{ res.last_name }} - Row {{ res.seat_row }}, Col {{ res.seat_col }}
+                    <form method="post" action="/delete/{{ res.id }}" style="display:inline;">
+                        <button type="submit">Delete</button>
+                    </form>
+                </li>
                 {% endfor %}
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
+            </ul>
+        </div>
 
-    <!-- <a href="/">Back to Main</a> -->
-    {% endif %}
-    
-    <h2>Admin Login</h2>
+        <div class="seating-chart">
+            <h3>Seating Chart</h3>
+            <table border="1" cellpadding="10">
+                {% for row in seats %}
+                <tr>
+                    {% for seat in row %}
+                    <td>{{ seat }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
 
-    {% if error %}
-    <p style="color: red;">{{ error }}</p>
+        <p><a href="{{ url_for('admin.admin_logout') }}">Logout</a></p>
+
+    {% else %}
+        <h2>Admin Login</h2>
+
+        {% if error %}
+        <p style="color: red;">{{ error }}</p>
+        {% endif %}
+
+        <div class="login-block">
+            <form method="post" action="{{ url_for('admin.admin_login') }}">
+                Username: <input type="text" name="username" required><br><br>
+                Password: <input type="password" name="password" required><br><br>
+                <input type="submit" value="Login">
+            </form>
+        </div>
     {% endif %}
-    <div class="login-block">
-        <form method="post" action="/admin-dashboard">
-            Username: <input type="text" name="username"><br><br>
-            Password: <input type="password" name="password"><br><br>
-            <input type="submit" value="Login">
-        </form>
-    </div>
 
 </body>
 </html>

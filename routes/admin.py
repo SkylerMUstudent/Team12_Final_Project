@@ -16,7 +16,7 @@ def admin_login():
 
         if admin_user:
             session['admin_logged_in'] = True
-            return redirect(url_for('admin_bp.admin_dashboard'))
+            return redirect(url_for('admin.admin_dashboard')) 
         else:
             error = "Invalid credentials. Please try again."
 
@@ -27,7 +27,7 @@ def admin_login():
 @admin_bp.route('/admin-dashboard', methods=['GET'])
 def admin_dashboard():
     if not session.get('admin_logged_in'):
-        return redirect(url_for('admin_bp.admin_login'))
+        return redirect(url_for('admin.admin_login')) 
 
     reservations = Reservation.query.all()
     total_sales = sum(r.price for r in reservations)
@@ -46,22 +46,22 @@ def admin_dashboard():
     )
 
 
-# Admin logout (optional)
+# Admin logout
 @admin_bp.route('/admin-logout')
 def admin_logout():
     session.pop('admin_logged_in', None)
-    return redirect(url_for('admin_bp.admin_login'))
+    return redirect(url_for('admin.admin_login'))
 
 
 # Delete a reservation
 @admin_bp.route('/delete/<int:id>', methods=['POST'])
 def delete_reservation(id):
     if not session.get('admin_logged_in'):
-        return redirect(url_for('admin_bp.admin_login'))
+        return redirect(url_for('admin.admin_login'))
 
     res = Reservation.query.get(id)
     if res:
         db.session.delete(res)
         db.session.commit()
     
-    return redirect(url_for('admin_bp.admin_dashboard'))
+    return redirect(url_for('admin.admin_dashboard'))  
